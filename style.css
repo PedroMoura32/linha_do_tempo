@@ -82,7 +82,8 @@ h1 {
     transform: scale(1.1);
 }
 .timeline-panel {
-    width: 45%;
+    text-align: justify;
+    width: 43%;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -254,9 +255,9 @@ h1 {
         top: 0;
     }
     .timeline-panel {
-        width: calc(100% - 100px);
+        width: calc(100% - 110px);
         float: right; /* Use float for consistency with desktop */
-        margin-left: 100px !important;
+        margin-left: 110px !important;
         margin-right: 0 !important;
     }
         .timeline-item:nth-child(odd) .timeline-panel {
@@ -275,4 +276,140 @@ h1 {
         left: -9px;
         right: auto;
     }
+}
+/* Adiciona o comportamento de rolagem suave na página inteira */
+html {
+    scroll-behavior: smooth;
+}
+
+/* --- Estilos para a Linha do Tempo Horizontal --- */
+
+.horizontal-timeline-container {
+    width: 100%;
+    margin-bottom: 50px;
+    background-color: #ecf0f1;
+    padding: 30px 0; /* Aumentei o padding para dar mais espaço vertical */
+    border: 1px solid #ddd;
+    
+    border-radius: 20px;
+    overflow: hidden; /* Garante que nada vaze para fora */
+}
+
+.horizontal-timeline {
+    display: flex;
+    justify-content: space-around; /* Mudei para space-around para melhor distribuição */
+    align-items: center;
+    position: relative;
+    width: 95%; /* Ajustei a largura */
+    margin: 0 auto;
+}
+
+/* A linha horizontal */
+.horizontal-timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #3498db; /* Cor mais suave para a linha */
+    z-index: 1;
+}
+
+.horiz-item {
+    display: flex;
+    /* O truque para intercalar acontece aqui embaixo */
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    flex-basis: 150px; /* Base de largura para cada item */
+    flex-shrink: 0;
+}
+
+.horiz-item a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #34495e;
+}
+
+/* O círculo que contém o ano */
+.horiz-dot {
+    width: 50px;
+    height: 50px;
+    background-color: #ecf0f1;
+    border: 3px solid #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #3498db;
+    transition: all 0.3s ease;
+}
+
+/* O rótulo com o nome do período */
+.horiz-label {
+    font-size: 0.85em;
+    text-align: center;
+    padding: 0 5px; /* Evita que o texto encoste nas bordas */
+    color: #34495e;
+    transition: color 0.3s ease;
+    height: 50px; /* Altura fixa para alinhar melhor */
+    display: flex;
+    align-items: center;
+}
+
+.horiz-item a:hover .horiz-dot {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.horiz-item a:hover .horiz-label {
+    color: #3498db;
+}
+
+/* --- A MÁGICA PARA INTERCALAR --- */
+
+/* Itens ÍMPARES (1, 3, 5...): Texto para baixo */
+.horiz-item:nth-child(odd) .horiz-label {
+    margin-top: 15px;
+}
+
+/* Itens PARES (2, 4, 6...): Texto para cima */
+.horiz-item:nth-child(even) a {
+    /* Inverte a ordem dos elementos filhos (círculo e texto) */
+    flex-direction: column-reverse;
+}
+
+.horiz-item:nth-child(even) .horiz-label {
+    margin-bottom: 15px;
+}
+/* --- Estilos para o Botão Voltar ao Topo --- */
+
+#backToTopBtn {
+    display: none; /* Começa oculto */
+    position: fixed; /* Fica fixo na tela */
+    bottom: 20px; /* Distância da parte de baixo */
+    right: 30px; /* Distância da direita */
+    z-index: 9999; /* Garante que fique sobre outros elementos */
+    border: none;
+    outline: none;
+    background-color: #3498db; /* Azul principal do seu tema */
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%; /* Deixa o botão redondo */
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+    line-height: 1;
+    transition: background-color 0.3s, opacity 0.4s;
+}
+
+#backToTopBtn:hover {
+    background-color: #2980b9; /* Um azul um pouco mais escuro no hover */
 }
